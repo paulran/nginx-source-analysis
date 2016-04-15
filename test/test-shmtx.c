@@ -164,6 +164,9 @@ HELPER_IMPL(shmtx) {
 	for (i = 0; i < shared_data_num; ++i) {
 		ASSERT(0 == *(shared_data + i));
 	}
+
+	ngx_shmtx_destroy(&shmtx);
+	ngx_shm_free(shm);
 	return 0;
 }
 
