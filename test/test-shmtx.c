@@ -120,6 +120,8 @@ static void process_wait(void) {
 			log_error("sub process %d exited with code %d.", pid,
 					WEXITSTATUS(status));
 		}
+
+		ngx_shmtx_force_unlock(&shmtx, pid);
 	}
 }
 
@@ -166,7 +168,7 @@ HELPER_IMPL(shmtx) {
 	}
 
 	ngx_shmtx_destroy(&shmtx);
-	ngx_shm_free(shm);
+	ngx_shm_free(&shm);
 	return 0;
 }
 
